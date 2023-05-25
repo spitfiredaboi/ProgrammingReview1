@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 
     public GameObject player;
     public Vector2 ugh = Vector2.zero;
-    public float speed = 3;
+    static public float speed = 3;
 
     // Start is called before the first frame update
     void Start()

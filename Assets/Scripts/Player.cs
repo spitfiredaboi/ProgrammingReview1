@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public float respawnTime;
     static public float score;
     static public float life;
+    static public bool poweredUp;
     public bool dead = false;
     public SpriteRenderer sr;
     public Sprite normal;
@@ -34,13 +35,30 @@ public class Player : MonoBehaviour
             transform.Translate(Vector2.right * speed * horizontalInput * Time.deltaTime);
             transform.Translate(Vector2.up * speed * verticalInput * Time.deltaTime);
         }
+
+        if (poweredUp)
+        {
+            sr.sprite = buff;
+        }
+        
+        if(!dead && !poweredUp)
+        {
+            sr.sprite = normal;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("snake"))
+        if (collision.gameObject.CompareTag("snake"))
         {
-            StartCoroutine(Deadguy());
+            if (poweredUp)
+            {
+                Destroy(collision.gameObject);
+            }
+            else
+            { 
+                StartCoroutine(Deadguy());
+            }
         }
     }
 
